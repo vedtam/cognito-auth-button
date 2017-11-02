@@ -1,0 +1,40 @@
+{
+  "name": "cognito-auth-button",
+  "version": "0.1",
+  "homepage": "https://github.com/vedtam/cognito-auth",
+  "description": "Webcomponent based on Amazon Cognito Auth SDK used to generate `auth` object to use with User Pools or external identity providers like Facebook.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vedtam/cognito-auth-button"
+  },
+  "main": "cognito-auth-button.html",
+  "keywords": [
+    "AWS",
+    "Cognito",
+    "Auth",
+    "Federated",
+    "Identities",
+    "Facebook",
+    "User",
+    "Pools"
+  ],
+  "authors": [
+    "Edmond Varga"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "paper-button": "polymerElements/paper-button#^2.0.0",
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

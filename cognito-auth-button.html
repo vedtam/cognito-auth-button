@@ -1,0 +1,119 @@
+<!--
+	This component is based on the official AWS Auth library managed by Crystal Wang:
+	https://github.com/aws/amazon-cognito-auth-js/
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+
+<dom-module id="cognito-auth-button">
+  <template>
+    <style>
+    </style>
+
+		<paper-button on-tap="userButton">[[label]]</paper-button>
+
+
+  </template>
+
+	<script>
+	    class CognitoAuth extends Polymer.Element {
+	      static get is() { return 'cognito-auth-button'; }
+	      static get properties() {
+	        return {
+						region: {
+							type: String,
+							value: 'eu-west-1'
+						},
+						auth: {
+							type: Object
+						},
+						label: {
+							type: String,
+							value: 'Sign In'
+						}
+	        };
+	      }
+
+				ready() {
+					super.ready();
+
+					AWS.config.region = this.region;
+
+					// 1. Initiatlize CognitoAuth object
+					this.auth = this.initCognitoSDK();
+
+					var curUrl = window.location.href;
+					auth.parseCognitoWebResponse(curUrl);
+				}
+
+
+			  // Perform user operations.
+				userButton() {
+					if (this.label === "Sign Out") {
+						this.label = "Sign In";
+						this.auth.signOut();
+						this.showSignedOut();
+					} else {
+						this.auth.getSession();
+					}
+				}
+
+				// Operations when signed in.
+			  showSignedIn(session) {
+					this.label = "Sign Out";
+					if (session) {
+						var idToken = session.getIdToken().getJwtToken();
+						if (idToken) {
+							// do something with the id token
+						}
+						var accToken = session.getAccessToken().getJwtToken();
+						if (accToken) {
+							// do something with the access token
+						}
+						var refToken = session.getRefreshToken().getToken();
+						if (refToken) {
+							// do something with the refresh token
+						}
+					}
+				}
+
+				// Operations when signed out.
+				showSignedOut() {
+					// display message after signed out
+				}
+
+				/**
+				 *	Initialize a cognito auth object.
+				 */
+				initCognitoSDK() {
+					var authData = {
+						 ClientId : this.clientId,
+						 AppWebDomain : this.appWebDomain;
+						 TokenScopesArray : this.tokenScopesArray;
+						 RedirectUriSignIn : this.redirectUriSignIn;
+						 RedirectUriSignOut : this.redirectUriSignOut;
+						 IdentityProvider: this.identityProvide;
+					 };
+
+					this.auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+
+					// Authentication listener
+					auth.userhandler = {
+						onSuccess: function(result) {
+							console.log("Sign in success");
+							showSignedIn(result);
+						},
+						onFailure: function(err) {
+							alert("Error!" + err);
+						}
+					};
+					// The default response_type is "token", uncomment the next line will make it be "code".
+					// auth.useCodeGrantFlow();
+					return auth;
+				}
+
+	}
+	window.customElements.define(CognitoAuth.is, CognitoAuth);
+	</script>
+</dom-module>
