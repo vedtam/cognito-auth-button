@@ -33,3 +33,35 @@ Create a new element and provide the necessary credentials:
   sign-out-label="Logout"
   class="login-btn"></cognito-auth-button>
 ```
+
+### Setting up Cognito User Pools
+
+In case if you got here after endless hours of figuring Cognito out (as it was in my case), and how to set up Facebook as an external identity provider for User Pools (NOT Federated Identities), before implementing `<cognito-auth-button>`, follow these steps:
+
+### Step: Facebook App
+
+1. Navigate to Facebook: https://developers.facebook.com/
+2. Create new app in My Apps
+3. Add Facebook Login in Products
+4. Collect Facebook app id and secret (needed later)
+5. Use specificed domain name in Valid OAuth redirect:
+  `https://myapp.auth.eu1.central1.1.amazoncognito.com/` (the part "myapp" you can name yourself, but it needs to match with the name used in AWS Congnito)
+
+### Step: AWS Cognito User Pools
+
+1. Login to AWS and navigate to Cognito service
+2. Create user pool in Cognito, say: `myapp_user_pool`
+3. Collect Pool Id (needed later)
+4. Create client in App clients (no secret needed)
+5. Collect app id (needed later)
+6. Define domain in App integration > Domain name, say: `myapp`
+7. Enable Facebook and credentials in Federation > Identity providers
+8. Back in App client Settings define callback for sign in/out urls. Example: https://localhost:3000/ or the domain on which you host your app (has to be https://)
+9. Select Allowed OAuth Flows: Implicit grant
+10. Select Allowed Oauth Scopes: email, openid, profile
+
+### Step: AWS Cognito Federated Identities
+
+11. Create new identity pool say: `myapp_identity_provider`
+12. Create role for unauthenticated and authenticated (see policy examples)
+13. Under Authentication Providers select Cognito and add User Pool ID and App client id (collected at step: 3. and 5.)
