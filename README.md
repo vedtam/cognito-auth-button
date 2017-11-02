@@ -1,6 +1,6 @@
 ## \<cognito-auth-button\>
 
-`<cognito-auth-button>` Registers an auth with the application and creates a CognitoAuth object using the provided attributes: App client ID, App web domain, scope array, sign-in redirect URL and a sign-out redirect URL.
+`<cognito-auth-button>` for Polymer, registers an auth with the application and creates a CognitoAuth object using the provided attributes: App client ID, App web domain, scope array, sign-in redirect URL and a sign-out redirect URL.
 
 ### Example usage:
 
@@ -55,8 +55,8 @@ In case if you got here after endless hours of figuring Cognito out (as it was i
 4. Create client in App clients (no secret needed)
 5. Collect app id (needed later)
 6. Define domain in App integration > Domain name, say: `myapp`
-7. Enable Facebook and credentials in Federation > Identity providers
-8. Back in App client Settings define callback for sign in/out urls. Example: https://localhost:3000/ or the domain on which you host your app (has to be https://)
+7. Enable Facebook and configure credentials in Federation > Identity providers
+8. Back in App client Settings check "Facebook" and define callback for sign in/out urls. Example: https://localhost:3000/ or the domain on which you host your app (has to be https://)
 9. Select Allowed OAuth Flows: Implicit grant
 10. Select Allowed Oauth Scopes: email, openid, profile
 
