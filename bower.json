@@ -2,7 +2,7 @@
   "name": "cognito-auth-button",
   "version": "0.1",
   "homepage": "https://github.com/vedtam/cognito-auth",
-  "description": "Webcomponent based on Amazon Cognito Auth SDK used to generate `auth` object to use with User Pools or external identity providers like Facebook.",
+  "description": "Webcomponent based on Amazon Cognito Auth SDK.",
   "repository": {
     "type": "git",
     "url": "git://github.com/vedtam/cognito-auth-button"
