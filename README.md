@@ -4,14 +4,12 @@
 
 ### Example usage:
 
-AWS include the necessary libraries into your `index.html` file:
+Include the necessary AWS libraries into your `index.html` file:
 
 ```html
-<!-- AWS -->
-<script src="js/aws-cognito-sdk.min.js"></script>
-<script src="js/amazon-cognito-auth.min.js"></script>
-<script src="js/amazon-cognito-identity.min.js"></script>
-<script src="https://sdk.amazonaws.com/js/aws-sdk-2.130.0.min.js"></script>
+<script src="https://github.com/aws/amazon-cognito-identity-js/blob/master/dist/aws-cognito-sdk.min.js"></script>
+<script src="https://github.com/aws/amazon-cognito-identity-js/blob/master/dist/amazon-cognito-identity.min.js"></script>
+<script src="https://github.com/aws/amazon-cognito-auth-js/blob/master/dist/amazon-cognito-auth.min.js"></script>
 ```
 
 Install:
