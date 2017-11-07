@@ -1,6 +1,6 @@
 <!--
 This component is based on the official AWS Auth library managed by Crystal Wang:
- https: //github.com/aws/amazon-cognito-auth-js/
+ https://github.com/aws/amazon-cognito-auth-js/
  -->
 
  <link rel = "import" href = "../polymer/polymer.html">
@@ -22,6 +22,7 @@ This component is based on the official AWS Auth library managed by Crystal Wang
    return {
     region: String,
     clientId: String,
+    poolId: String,
     appWebDomain: String,
     tokenScopesArray: String,
     redirectUriSignIn: String,
@@ -34,6 +35,10 @@ This component is based on the official AWS Auth library managed by Crystal Wang
      type: Object,
      value: () => ({})
     },
+    response: {
+      type: Object,
+      notify: true
+    }
    };
   }
 
@@ -48,6 +53,11 @@ This component is based on the official AWS Auth library managed by Crystal Wang
     this.userButton(auth);
    });
 
+   // Get cached Session if exists
+   if(auth.getCachedSession().isValid()){
+     this.showSignedIn(auth.getCachedSession());
+   }
+
    if (this.label === undefined) {
     this.label = this.signInLabel;
    }
@@ -61,7 +71,7 @@ This component is based on the official AWS Auth library managed by Crystal Wang
     auth.signOut();
     this.showSignedOut();
    } else {
-    // start login process
+    // get current or new auth session
     auth.getSession();
    }
   }
@@ -72,7 +82,11 @@ This component is based on the official AWS Auth library managed by Crystal Wang
    if (session) {
     var idToken = session.getIdToken().getJwtToken();
     if (idToken) {
-     // do something with the id token
+     // parse the idToken and get the current identity
+     var payload = idToken.split('.')[1];
+		 var formatted = JSON.parse(atob(payload));
+    //  this.response = formatted;
+    //  window.signedInUser = formatted;
     }
     var accToken = session.getAccessToken().getJwtToken();
     if (accToken) {
@@ -104,6 +118,7 @@ This component is based on the official AWS Auth library managed by Crystal Wang
    };
 
    var auth = new AWSCognito.CognitoIdentityServiceProvider.CognitoAuth(authData);
+
    auth.userhandler = {
     onSuccess: result => {
      this.showSignedIn(result);
